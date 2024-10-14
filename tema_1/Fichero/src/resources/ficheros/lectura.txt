@@ -1,2 +1,0 @@
-Este fichero lo vamos a utiliza para hacer una lectura
-En esta segunda linea aparecería otra linea desde el fichero
