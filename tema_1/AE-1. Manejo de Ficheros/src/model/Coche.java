@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class Coche {
     private int id;
@@ -20,7 +20,7 @@ public class Coche {
 
     @Override
     public String toString() {
-        return "controller.Coche{" + "id=" + id + ", marca='" + marca + '\'' + ", modelo='" + modelo + '\'' + ", color='" + color + '\'' + ", matricula='" + matricula + '\'' + '}';
+        return "model.Coche{" + "id=" + id + ", marca='" + marca + '\'' + ", modelo='" + modelo + '\'' + ", color='" + color + '\'' + ", matricula='" + matricula + '\'' + '}';
     }
 
     public int getId() {

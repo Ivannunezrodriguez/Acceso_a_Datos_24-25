@@ -1,5 +1,7 @@
 package controller;
 
+import model.Coche;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -89,7 +91,7 @@ public class GestorCoches {
 
         coches.add(coche);
         guardarCochesEnArchivo();
-        System.out.println("controller.Coche añadido con éxito.");
+        System.out.println("model.Coche añadido con éxito.");
     }
 
     public Coche buscarCochePorMatricula(String matricula) {
@@ -112,7 +114,7 @@ public class GestorCoches {
 
     public void eliminarCocheId(int id) {
         if (coches.removeIf(coche -> coche.getId() == id)) {
-            System.out.println("controller.Coche eliminado.");
+            System.out.println("model.Coche eliminado.");
         } else {
             System.out.println("No se encontró el coche con ID: " + id);
         }
@@ -154,4 +156,56 @@ public class GestorCoches {
             scanner.close();
         }
     }
-}
+    public void menu(){
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+        do {
+            System.out.println("Introduce qué quieres hacer:");
+            System.out.println("1. Añadir coche");
+            System.out.println("2. Borrar coche");
+            System.out.println("3. Consultar coche por ID");
+            System.out.println("4. Listar coches");
+            System.out.println("5. Exportar coches a archivo CSV");
+            System.out.println("6. Guardar y salir");
+
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    agregarCoche();
+                    break;
+                case 2:
+                    System.out.print("Ingrese el ID del coche a borrar: ");
+                    int idBorrar = scanner.nextInt();
+                    eliminarCocheId(idBorrar);
+                    break;
+                case 3:
+                    System.out.print("Ingrese el ID del coche a buscar: ");
+                    int muestraId = scanner.nextInt();
+                    Coche cocheEncontrado = buscarCochePorId(muestraId);
+                    if (cocheEncontrado != null) {
+                        System.out.println("Coche encontrado: " + cocheEncontrado);
+                    } else {
+                        System.out.println("No se encontró ningún coche con el ID " + muestraId);
+                    }
+                    break;
+                case 4:
+                    mostrarCoches();
+                    break;
+                case 5:
+                    String nombreArchivoCSV = "src/resources/coches.csv";
+                    exportarCochesACSV(nombreArchivoCSV);
+                    break;
+                case 6:
+                    guardarCochesEnArchivo();
+                    System.out.println("Coches guardados en " +getNombreArchivo());
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+                    break;
+            }
+        } while (opcion != 6);
+    }
+    }
+
