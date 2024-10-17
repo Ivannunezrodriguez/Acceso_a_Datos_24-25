@@ -10,15 +10,12 @@ import java.util.Scanner;
 
 public class GestorCoches {
     private final ArrayList<Coche> coches;
-    private final Scanner scanner;
     @Setter
     @Getter
     private String nombreArchivoDat = "src/main/java/resources/coches.dat";
-    private final String nombreArchivoCsv = "src/main/java/resources/coches.csv";
 
     public GestorCoches() {
         coches = new ArrayList<>();
-        scanner = new Scanner(System.in);
         cargarCochesDesdeArchivo();
     }
 
@@ -116,6 +113,7 @@ public class GestorCoches {
     }
 
     public void exportarCochesACSV() {
+        String nombreArchivoCsv = "src/main/java/resources/coches.csv";
         File file = new File(nombreArchivoCsv);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write("ID;Marca;Modelo;Color;Matricula\n");
@@ -128,13 +126,7 @@ public class GestorCoches {
         }
     }
 
-    public void cerrarScanner() {
-        if (scanner != null) {
-            scanner.close();
-        }
-    }
-
-    public void menu() {
+       public void menu() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
         do {
@@ -177,7 +169,7 @@ public class GestorCoches {
                     break;
                 case 6:
                     guardarCochesEnArchivo();
-                    System.out.println("Saliendo del programa...");
+                    System.out.println("Saliendo del programa");
                     break;
                 default:
                     System.out.println("Opción no válida. Intente de nuevo.");
