@@ -1,5 +1,8 @@
 package controller;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import model.Coche;
 
 import java.io.*;
@@ -8,7 +11,9 @@ import java.util.Scanner;
 
 public class GestorCoches {
     private final ArrayList<Coche> coches;
-    private String nombreArchivo = "src/resources/coches.dat";
+    @Setter
+    @Getter
+    private String nombreArchivo = "src/main/java/resources/coches.dat";
     private final Scanner scanner;
 
     public GestorCoches() {
@@ -119,14 +124,6 @@ public class GestorCoches {
             System.out.println("No se encontró el coche con ID: " + id);
         }
         guardarCochesEnArchivo();
-    }
-
-    public String getNombreArchivo() {
-        return nombreArchivo;
-    }
-
-    public void setNombreArchivo(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
     }
 
     public void mostrarCoches() {
