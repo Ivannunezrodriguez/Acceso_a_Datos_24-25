@@ -2,7 +2,6 @@ package controller;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import model.Coche;
 
 import java.io.*;
@@ -11,10 +10,11 @@ import java.util.Scanner;
 
 public class GestorCoches {
     private final ArrayList<Coche> coches;
+    private final Scanner scanner;
     @Setter
     @Getter
-    private String nombreArchivo = "src/main/java/resources/coches.dat";
-    private final Scanner scanner;
+    private String nombreArchivoDat = "src/main/java/resources/coches.dat";
+    private final String nombreArchivoCsv = "src/main/java/resources/coches.csv";
 
     public GestorCoches() {
         coches = new ArrayList<>();
@@ -23,42 +23,27 @@ public class GestorCoches {
     }
 
     public void cargarCochesDesdeArchivo() {
-        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-
-                if (linea.trim().isEmpty()) {
-                    continue;
-                }
-                String[] datos = linea.split(",");
-                if (datos.length != 5) {
-                    System.err.println("Formato incorrecto en la línea: " + linea);
-                    continue;
-                }
-                Coche coche = new Coche();
-                try {
-                    coche.setId(Integer.parseInt(datos[0]));
-                    coche.setMarca(datos[1]);
-                    coche.setModelo(datos[2]);
-                    coche.setColor(datos[3]);
-                    coche.setMatricula(datos[4]);
-                    coches.add(coche);
-                } catch (NumberFormatException e) {
-                    System.err.println("ID no válido en la línea: " + linea);
-                }
+        File archivo = new File(nombreArchivoDat);
+        if (archivo.exists()) {
+            try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(nombreArchivoDat))) {
+                ArrayList<Coche> cochesCargados = (ArrayList<Coche>) objectInputStream.readObject();
+                coches.clear();
+                coches.addAll(cochesCargados);
+                System.out.println("Coches cargados desde el archivo.");
+            } catch (FileNotFoundException e) {
+                System.err.println("Archivo no encontrado. Se creará uno nuevo.");
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Error al cargar los coches desde el archivo: " + e.getMessage());
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("Archivo no encontrado. Se creará uno nuevo.");
-        } catch (IOException e) {
-            System.err.println("Error al cargar los coches desde el archivo: " + e.getMessage());
+        } else {
+            System.out.println("El archivo no existe, se creará uno nuevo al guardar.");
         }
     }
 
     public void guardarCochesEnArchivo() {
-        try (PrintWriter printWriter = new PrintWriter(new FileWriter(nombreArchivo))) {
-            for (Coche coche : coches) {
-                printWriter.println(coche.getId() + "," + coche.getMarca() + "," + coche.getModelo() + "," + coche.getColor() + "," + coche.getMatricula());
-            }
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(nombreArchivoDat))) {
+            objectOutputStream.writeObject(coches);
+            System.out.println("Coches guardados en " + getNombreArchivoDat());
         } catch (IOException e) {
             System.err.println("Error al guardar los coches en el archivo: " + e.getMessage());
         }
@@ -69,17 +54,12 @@ public class GestorCoches {
         Coche coche = new Coche();
         System.out.print("Ingrese el ID del coche: ");
         int id = scanner.nextInt();
-
-
         if (buscarCochePorId(id) != null) {
             System.out.println("Error: Ya existe un coche con el ID " + id);
             return;
         }
-
         System.out.print("Ingrese la matrícula del coche: ");
         String matricula = scanner.next();
-
-
         if (buscarCochePorMatricula(matricula) != null) {
             System.out.println("Error: Ya existe un coche con la matrícula " + matricula);
             return;
@@ -93,10 +73,9 @@ public class GestorCoches {
         coche.setModelo(scanner.next());
         System.out.print("Ingrese el color del coche: ");
         coche.setColor(scanner.next());
-
         coches.add(coche);
         guardarCochesEnArchivo();
-        System.out.println("model.Coche añadido con éxito.");
+        System.out.println("Coche añadido con éxito.");
     }
 
     public Coche buscarCochePorMatricula(String matricula) {
@@ -119,7 +98,7 @@ public class GestorCoches {
 
     public void eliminarCocheId(int id) {
         if (coches.removeIf(coche -> coche.getId() == id)) {
-            System.out.println("model.Coche eliminado.");
+            System.out.println("Coche eliminado.");
         } else {
             System.out.println("No se encontró el coche con ID: " + id);
         }
@@ -136,13 +115,14 @@ public class GestorCoches {
         }
     }
 
-    public void exportarCochesACSV(String nombreArchivoCSV) {
-        try (FileWriter writer = new FileWriter(nombreArchivoCSV)) {
-            writer.write("ID;Marca;Modelo;Color;Matricula\n");
+    public void exportarCochesACSV() {
+        File file = new File(nombreArchivoCsv);
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            fileWriter.write("ID;Marca;Modelo;Color;Matricula\n");
             for (Coche coche : coches) {
-                writer.write(coche.getId() + ";" + coche.getMarca() + ";" + coche.getModelo() + ";" + coche.getColor() + ";" + coche.getMatricula() + "\n");
+                fileWriter.write(coche.getId() + ";" + coche.getMarca() + ";" + coche.getModelo() + ";" + coche.getColor() + ";" + coche.getMatricula() + "\n");
             }
-            System.out.println("Coches exportados a " + nombreArchivoCSV);
+            System.out.println("Coches exportados a " + file);
         } catch (IOException e) {
             System.err.println("Error al exportar coches a CSV: " + e.getMessage());
         }
@@ -153,7 +133,8 @@ public class GestorCoches {
             scanner.close();
         }
     }
-    public void menu(){
+
+    public void menu() {
         Scanner scanner = new Scanner(System.in);
         int opcion;
         do {
@@ -166,9 +147,9 @@ public class GestorCoches {
             System.out.println("6. Guardar y salir");
 
             opcion = scanner.nextInt();
-
             switch (opcion) {
                 case 1:
+                    System.out.print("Ingrese Datos");
                     agregarCoche();
                     break;
                 case 2:
@@ -178,24 +159,24 @@ public class GestorCoches {
                     break;
                 case 3:
                     System.out.print("Ingrese el ID del coche a buscar: ");
-                    int muestraId = scanner.nextInt();
-                    Coche cocheEncontrado = buscarCochePorId(muestraId);
+                    int id = scanner.nextInt();
+                    Coche cocheEncontrado = buscarCochePorId(id);
                     if (cocheEncontrado != null) {
                         System.out.println("Coche encontrado: " + cocheEncontrado);
                     } else {
-                        System.out.println("No se encontró ningún coche con el ID " + muestraId);
+                        System.out.println("No se encontró ningún coche con el ID " + id);
                     }
                     break;
                 case 4:
+                    System.out.println("Mostrando coches");
                     mostrarCoches();
                     break;
                 case 5:
-                    String nombreArchivoCSV = "src/resources/coches.csv";
-                    exportarCochesACSV(nombreArchivoCSV);
+                    System.out.println("Exportando a CSV");
+                    exportarCochesACSV();
                     break;
                 case 6:
                     guardarCochesEnArchivo();
-                    System.out.println("Coches guardados en " +getNombreArchivo());
                     System.out.println("Saliendo del programa...");
                     break;
                 default:
@@ -204,5 +185,5 @@ public class GestorCoches {
             }
         } while (opcion != 6);
     }
-    }
+}
 
