@@ -13,8 +13,6 @@ public class Pasajero {
     private int edad;
     private double peso;
 
-
-
 public void mostrarPasajero(){
 
     System.out.println("id = " + id);

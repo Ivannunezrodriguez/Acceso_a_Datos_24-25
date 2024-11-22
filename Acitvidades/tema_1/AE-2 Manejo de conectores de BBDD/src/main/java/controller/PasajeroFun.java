@@ -1,76 +1,107 @@
 package controller;
 
-
 import dao.PasajeroDAO;
 import model.Pasajero;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Scanner;
 
 public class PasajeroFun {
     private final PasajeroDAO pasajeroDAO = new PasajeroDAO();
 
-    // Crear un nuevo pasajero
-    public void nuevoPasajero(String nombre, int edad, double peso) throws SQLException {
-        Pasajero pasajero = new Pasajero(0, nombre, edad, peso);
-        pasajeroDAO.añadirPasajero(pasajero);
-    }
+    public void nuevoPasajero(Scanner scanner) {
+        System.out.print("Nombre del pasajero: ");
+        String nombre = scanner.next();
+        System.out.print("Edad del pasajero: ");
+        int edad = scanner.nextInt();
+        System.out.print("Peso del pasajero: ");
+        double peso = scanner.nextDouble();
 
-    // Consultar un pasajero por ID
-    public Pasajero buscaPasajeroPorId(int id) throws SQLException {
-        return pasajeroDAO.getPasajeroById(id);
-    }
-
-    // Borrar un pasajero por ID
-    public void borrarPasajero(int id) throws SQLException {
-        pasajeroDAO.borrarPasajero(id);
-    }
-
-    // Listar todos los pasajeros
-    public List<Pasajero> listarPasajeros() throws SQLException {
-        return pasajeroDAO.listarPasajeros();
-    }
-
-    // Mostrar todos los pasajeros en formato legible
-    public void mostrarPasajeros() throws SQLException {
-        List<Pasajero> pasajeros = listarPasajeros();
-        if (pasajeros.isEmpty()) {
-            System.out.println("No hay pasajeros registrados.");
-        } else {
-            System.out.println("\n===== LISTADO DE PASAJEROS =====");
-            for (Pasajero pasajero : pasajeros) {
-                System.out.println("ID: " + pasajero.getId() + ", Nombre: " + pasajero.getNombre() +
-                        ", Edad: " + pasajero.getEdad() + ", Peso: " + pasajero.getPeso());
-            }
+        try {
+            pasajeroDAO.añadirPasajero(new Pasajero(0, nombre, edad, peso));
+            System.out.println("Pasajero añadido correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al añadir pasajero: " + e.getMessage());
         }
     }
 
-    // Añadir un pasajero a un coche
-    public void añadirPasajeroEnCoche(int pasajeroId, int cocheId) throws SQLException {
-        pasajeroDAO.añadirPasajeroEnCoche(pasajeroId, cocheId);
+    public void borrarPasajero(Scanner scanner) {
+        System.out.print("ID del pasajero a borrar: ");
+        int id = scanner.nextInt();
+
+        try {
+            pasajeroDAO.borrarPasajero(id);
+            System.out.println("Pasajero borrado correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al borrar pasajero: " + e.getMessage());
+        }
     }
 
-    // Eliminar un pasajero de un coche
-    public void borrarPasajeroEnCoche(int pasajeroId, int cocheId) throws SQLException {
-        pasajeroDAO.borrarPasajeroEnCoche(pasajeroId, cocheId);
-    }
+    public void consultarPasajero(Scanner scanner) {
+        System.out.print("ID del pasajero a consultar: ");
+        int id = scanner.nextInt();
 
-    // Listar todos los pasajeros de un coche
-    public List<Pasajero> listarPasajerosPorCoche(int cocheId) throws SQLException {
-        return pasajeroDAO.listarPasajerosPorCoche(cocheId);
-    }
-
-    // Mostrar los pasajeros de un coche en formato legible
-    public void mostrarPasajerosDeCoche(int cocheId) throws SQLException {
-        List<Pasajero> pasajeros = listarPasajerosPorCoche(cocheId);
-        if (pasajeros.isEmpty()) {
-            System.out.println("El coche con ID " + cocheId + " no tiene pasajeros asociados.");
-        } else {
-            System.out.println("\n===== PASAJEROS DEL COCHE (ID: " + cocheId + ") =====");
-            for (Pasajero pasajero : pasajeros) {
-                System.out.println("ID: " + pasajero.getId() + ", Nombre: " + pasajero.getNombre() +
-                        ", Edad: " + pasajero.getEdad() + ", Peso: " + pasajero.getPeso());
+        try {
+            Pasajero pasajero = pasajeroDAO.getPasajeroById(id);
+            if (pasajero != null) {
+                System.out.println("Pasajero encontrado: " + pasajero);
+            } else {
+                System.out.println("Pasajero no encontrado.");
             }
+        } catch (SQLException e) {
+            System.out.println("Error al consultar pasajero: " + e.getMessage());
+        }
+    }
+
+    public void listarPasajeros() {
+        try {
+            pasajeroDAO.listarPasajeros().forEach(System.out::println);
+        } catch (SQLException e) {
+            System.out.println("Error al listar pasajeros: " + e.getMessage());
+        }
+    }
+
+    public void añadirPasajeroACoche(Scanner scanner) {
+        System.out.print("ID del pasajero: ");
+        int pasajeroId = scanner.nextInt();
+        System.out.print("ID del coche: ");
+        int cocheId = scanner.nextInt();
+
+        try {
+            pasajeroDAO.añadirPasajeroEnCoche(pasajeroId, cocheId);
+            System.out.println("Pasajero añadido al coche correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al añadir pasajero al coche: " + e.getMessage());
+        }
+    }
+
+    public void eliminarPasajeroDeCoche(Scanner scanner) {
+        System.out.print("ID del pasajero: ");
+        int pasajeroId = scanner.nextInt();
+        System.out.print("ID del coche: ");
+        int cocheId = scanner.nextInt();
+
+        try {
+            pasajeroDAO.borrarPasajeroEnCoche(pasajeroId, cocheId);
+            System.out.println("Pasajero eliminado del coche correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar pasajero del coche: " + e.getMessage());
+        }
+    }
+
+    public void listarPasajerosDeCoche(Scanner scanner) {
+        System.out.print("ID del coche: ");
+        int cocheId = scanner.nextInt();
+
+        try {
+            var pasajeros = pasajeroDAO.listarPasajerosPorCoche(cocheId);
+            if (pasajeros.isEmpty()) {
+                System.out.println("El coche con ID " + cocheId + " no tiene pasajeros asociados.");
+            } else {
+                pasajeros.forEach(System.out::println);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar pasajeros del coche: " + e.getMessage());
         }
     }
 }
