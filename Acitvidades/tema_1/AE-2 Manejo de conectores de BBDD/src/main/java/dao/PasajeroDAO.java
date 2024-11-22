@@ -68,8 +68,8 @@ public class PasajeroDAO {
         List<Pasajero> pasajeros = new ArrayList<>();
         String query = "SELECT * FROM " + DatabaseSchema.TABLE_PASAJEROS;
 
-        prepareStatement = (PreparedStatement) connection.createStatement();
-        resultSet = prepareStatement.executeQuery(query);
+        prepareStatement = connection.prepareStatement(query);
+        resultSet = prepareStatement.executeQuery();
         while (resultSet.next()) {
             pasajeros.add(new Pasajero(resultSet.getInt(DatabaseSchema.COLUMN_PASAJERO_ID),
                     resultSet.getString(DatabaseSchema.COLUMN_PASAJERO_NOMBRE),
