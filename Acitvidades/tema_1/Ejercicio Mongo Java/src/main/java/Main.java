@@ -1,6 +1,6 @@
 import dao.AlumnosDAO;
 import dao.ProfesoresDAO;
-import database.DatabaseSchema;
+
 import model.Alumno;
 import model.Profesor;
 
@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        DatabaseSchema.initializeSchema(); // Inicializa las colecciones si no existen
+
         AlumnosDAO alumnosDAO = new AlumnosDAO();
         ProfesoresDAO profesoresDAO = new ProfesoresDAO();
         Scanner scanner = new Scanner(System.in);

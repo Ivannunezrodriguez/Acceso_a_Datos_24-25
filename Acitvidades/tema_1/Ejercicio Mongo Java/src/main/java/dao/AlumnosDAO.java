@@ -7,7 +7,7 @@ import model.Alumno;
 import org.bson.Document;
 
 public class AlumnosDAO {
-MongoCollection alumnosCollection;
+ MongoCollection alumnosCollection;
 
     public AlumnosDAO() {
         alumnosCollection = new DatabaseConnection().getAlumnosCollection();
@@ -18,16 +18,16 @@ MongoCollection alumnosCollection;
     }
 
     public void mostrarAlumnos() {
-        try (MongoCursor<Document> cursor = alumnosCollection.find().iterator()) {
+        try (MongoCursor cursor = alumnosCollection.find().iterator()) {
             while (cursor.hasNext()) {
-                System.out.println(Alumno.fromDocument(cursor.next()));
+                System.out.println(Alumno.fromDocument((Document) cursor.next()));
             }
         }
     }
 
     public Alumno buscarAlumnoPorEmail(String email) {
         Document query = new Document("email", email);
-        Document result = alumnosCollection.find(query).first();
+        Document result = (Document) alumnosCollection.find(query).first();
         return result != null ? Alumno.fromDocument(result) : null;
     }
 

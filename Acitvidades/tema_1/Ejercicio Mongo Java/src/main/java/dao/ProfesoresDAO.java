@@ -21,16 +21,16 @@ public class ProfesoresDAO {
     }
 
     public void mostrarProfesores() {
-        try (MongoCursor<Document> cursor = profesoresCollection.find().iterator()) {
+        try (MongoCursor cursor = profesoresCollection.find().iterator()) {
             while (cursor.hasNext()) {
-                System.out.println(Profesor.fromDocument(cursor.next()));
+                System.out.println(Profesor.fromDocument((Document) cursor.next()));
             }
         }
     }
 
     public void buscarProfesorPorRangoEdad(int minAge, int maxAge) {
-        for (Document profesor : profesoresCollection.find(new Document("age", new Document("$gte", minAge).append("$lte", maxAge)))) {
-            System.out.println(Profesor.fromDocument(profesor));
+        for (Object profesor : profesoresCollection.find(new Document("age", new Document("$gte", minAge).append("$lte", maxAge)))) {
+            System.out.println(Profesor.fromDocument((Document) profesor));
         }
     }
 
