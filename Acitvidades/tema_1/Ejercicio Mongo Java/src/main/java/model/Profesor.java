@@ -1,46 +1,54 @@
 package model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.bson.Document;
+import lombok.Setter;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
-public class Profesor {
-    private String id;
-    private String name;
-    private int age;
+@NoArgsConstructor
+public class Profesor implements Serializable {
+    @BsonProperty("name")
+    private String nombre;
+
+    @BsonProperty("age")
+    private int edad;
+
+    @BsonProperty("gender")
     private String gender;
+
+    @BsonProperty("email")
     private String email;
+
+    @BsonProperty("phone")
     private String phone;
+
+    @BsonProperty("subjects")
     private List<String> subjects;
+
+    @BsonProperty("title")
     private String title;
 
-    public Document toDocument() {
-        return new Document("_id", id)
-                .append("name", name)
-                .append("age", age)
-                .append("gender", gender)
-                .append("email", email)
-                .append("phone", phone)
-                .append("subjects", subjects)
-                .append("title", title);
-    }
+    @BsonProperty("rating")
+    private double rating;
 
-    public static Profesor fromDocument(Document doc) {
-        return new Profesor(
-                doc.getObjectId("_id").toString(),
-                doc.getString("name"),
-                doc.getInteger("age"),
-                doc.getString("gender"),
-                doc.getString("email"),
-                doc.getString("phone"),
-                doc.getList("subjects", String.class),
-                doc.getString("title")
-        );
+    @Override
+    public String toString() {
+        return "Profesor{" +
+                "nombre='" + nombre + '\'' +
+                ", edad=" + edad +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", subjects=" + subjects +
+                ", title='" + title + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }

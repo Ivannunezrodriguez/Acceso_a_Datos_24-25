@@ -1,44 +1,52 @@
 package model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.bson.Document;
+import lombok.Setter;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Alumno {
-    private String id;
-    private String name;
-    private int age;
-    private String gender;
-    private String email;
-    private String phone;
-    private int calification;
-    private String higherGrade;
 
-    public Document toDocument() {
-        return new Document("_id", id)
-                .append("name", name)
-                .append("age", age)
-                .append("gender", gender)
-                .append("email", email)
-                .append("phone", phone)
-                .append("calification", calification)
-                .append("higher_grade", higherGrade);
-    }
+    @BsonProperty("name")
+    private String name;  // El nombre del alumno
 
-    public static Alumno fromDocument(Document doc) {
-        return new Alumno(
-                doc.getObjectId("_id").toString(),
-                doc.getString("name"),
-                doc.getInteger("age"),
-                doc.getString("gender"),
-                doc.getString("email"),
-                doc.getString("phone"),
-                doc.getInteger("calification"),
-                doc.getString("higher_grade")
-        );
+    @BsonProperty("age")
+    private int age;  // Edad del alumno
+
+    @BsonProperty("gender")
+    private String gender;  // Género del alumno
+
+    @BsonProperty("email")
+    private String email;  // Correo electrónico del alumno
+
+    @BsonProperty("phone")
+    private String phone;  // Número de teléfono
+
+    @BsonProperty("calification")
+    private int calification;  // Calificación del alumno
+
+    @BsonProperty("higher_grade")
+    private String higherGrade;  // Nivel superior del alumno (e.g., DAM, DAW)
+
+    @BsonProperty("rating")
+    private double rating;  // Valoración del alumno
+
+    @Override
+    public String toString() {
+        return "Alumno{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", calification=" + calification +
+                ", higherGrade='" + higherGrade + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }
