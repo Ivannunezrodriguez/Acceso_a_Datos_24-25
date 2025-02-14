@@ -1,20 +1,18 @@
-package Model;
+package model;
 
-import Model.Curso;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "profesores")
-public class Profesor {
+
+public class Perfil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +22,16 @@ public class Profesor {
     private String nombre;
 
     @Column(nullable = false)
-    private String especialidad;
+    private String apellido;
 
-    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
-    private List<Curso> cursos;
+    @OneToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
 
-    public Profesor(String nombre, String especialidad) {
+    public Perfil(String nombre, String apellido, Usuario usuario) {
         this.nombre = nombre;
-        this.especialidad = especialidad;
+        this.apellido = apellido;
+        this.usuario = usuario;
     }
 }

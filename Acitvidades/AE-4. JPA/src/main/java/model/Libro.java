@@ -19,7 +19,9 @@ public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String titulo;
+    @Column
     private double precio;
 
     @ManyToOne
@@ -35,5 +37,12 @@ public class Libro {
         this.precio = precio;
         this.autor = autor;
         this.editorial = editorial;
+    }
+
+    public Libro(String titulo, double precio) {
+        this.titulo = titulo;
+        this.precio = precio;
+
+
     }
 }

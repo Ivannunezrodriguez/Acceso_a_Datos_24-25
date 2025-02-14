@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "estudiantes")
+
 public class Estudiante {
 
     @Id

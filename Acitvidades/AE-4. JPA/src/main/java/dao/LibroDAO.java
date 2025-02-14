@@ -2,31 +2,30 @@ package dao;
 
 import database.HibernateUtil;
 import model.Libreria;
+import model.Libro;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class LibreriaDAO {
+public class LibroDAO {
 
-    public void agregarLibreria(Libreria libreria) {
+    public void agregarLibro(Libro libro) {
         Session session = new HibernateUtil().getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        session.persist(libreria);
+        session.persist(libro);
         session.getTransaction().commit();
         session.close();
     }
 
-    public List<Libreria> obtenerLibreriasConLibros() {
+    public List<Libro> obtenerLibrosConEditorialYAutor(){
         Session session = new HibernateUtil().getSessionFactory().getCurrentSession();
         session.beginTransaction();
-             String querySTR = "SELECT DISTINCT l FROM Libreria l LEFT JOIN FETCH l.libros WHERE SIZE(l.libros) > 0";
-        Query<Libreria> query = session.createQuery(querySTR, Libreria.class);
-
-        List<Libreria> librerias = query.getResultList();
+        String querySTR = "SELECT l FROM Libro l JOIN FETCH l.editorial JOIN FETCH l.autor";
+        Query<Libro> query = session.createQuery(querySTR, Libro.class);
+          List<Libro> libros= query.getResultList();
         session.getTransaction().commit();
         session.close();
-
-        return librerias;
+        return libros;
     }
 }

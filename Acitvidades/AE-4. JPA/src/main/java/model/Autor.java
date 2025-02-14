@@ -21,8 +21,11 @@ public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+@Column
     private String nombre;
+@Column
     private String apellidos;
+@Column
     private Date fechaNacimiento;
 
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

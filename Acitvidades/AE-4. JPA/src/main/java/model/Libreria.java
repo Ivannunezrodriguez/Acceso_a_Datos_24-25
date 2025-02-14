@@ -18,8 +18,11 @@ public class Libreria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String nombre;
+    @Column
     private String nombreDueno;
+    @Column
     private String direccion;
 
     @ManyToMany
@@ -31,5 +34,12 @@ public class Libreria {
         this.nombreDueno = nombreDueno;
         this.direccion = direccion;
         this.libros = libros;
+    }
+
+    public Libreria(String nombre, String nombreDueno, String direccion) {
+        this.nombre = nombre;
+        this.nombreDueno = nombreDueno;
+        this.direccion = direccion;
+
     }
 }

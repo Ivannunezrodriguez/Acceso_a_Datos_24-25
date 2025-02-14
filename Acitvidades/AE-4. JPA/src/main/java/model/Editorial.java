@@ -18,7 +18,9 @@ public class Editorial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String nombre;
+    @Column
     private String direccion;
 
     @OneToMany(mappedBy = "editorial", cascade = CascadeType.ALL)

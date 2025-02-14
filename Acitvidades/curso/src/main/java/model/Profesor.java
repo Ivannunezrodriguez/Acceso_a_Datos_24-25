@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,13 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "perfiles")
-public class Perfil {
+
+public class Profesor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +23,14 @@ public class Perfil {
     private String nombre;
 
     @Column(nullable = false)
-    private String apellido;
+    private String especialidad;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+    private List<Curso> cursos;
 
 
-    public Perfil(String nombre, String apellido, Usuario usuario) {
+    public Profesor(String nombre, String especialidad) {
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.usuario = usuario;
+        this.especialidad = especialidad;
     }
 }
