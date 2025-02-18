@@ -11,10 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "Libro.buscaPrimerosCuatro", query = "SELECT l FROM Libro l ORDER BY l.id ASC"),
-        @NamedQuery(name = "Libro.buscaSuientesCuatro", query = "SELECT l FROM Libro l ORDER BY l.id ASC")
-})
+@NamedQueries({@NamedQuery(name = "Libro.buscaPrimerosCuatro", query = "SELECT l FROM Libro l ORDER BY l.id ASC"), @NamedQuery(name = "Libro.buscaSuientesCuatro", query = "SELECT l FROM Libro l ORDER BY l.id ASC")})
 public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

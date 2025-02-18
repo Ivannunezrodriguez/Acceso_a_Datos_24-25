@@ -20,7 +20,7 @@ public class LibreriaDAO {
     public List<Libreria> obtenerLibreriasConLibros() {
         Session session = new HibernateUtil().getSessionFactory().getCurrentSession();
         session.beginTransaction();
-             String querySTR = "SELECT DISTINCT l FROM Libreria l LEFT JOIN FETCH l.libros WHERE SIZE(l.libros) > 0";
+        String querySTR = "SELECT DISTINCT l FROM Libreria l LEFT JOIN FETCH l.libros WHERE SIZE(l.libros) > 0";
         Query<Libreria> query = session.createQuery(querySTR, Libreria.class);
 
         List<Libreria> librerias = query.getResultList();

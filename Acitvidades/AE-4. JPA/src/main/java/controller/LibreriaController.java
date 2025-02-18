@@ -1,17 +1,23 @@
 package controller;
 
-import dao.*;
+import dao.AutorDAO;
+import dao.EditorialDAO;
+import dao.LibreriaDAO;
+import dao.LibroDAO;
 import database.HibernateUtil;
-import model.*;
+import model.Autor;
+import model.Editorial;
+import model.Libreria;
+import model.Libro;
 import org.hibernate.Session;
 
 import java.util.List;
 
 public class LibreriaController {
-    private AutorDAO autorDAO;
-    private EditorialDAO editorialDAO;
-    private LibroDAO libroDAO;
-    private LibreriaDAO libreriaDAO;
+    private final AutorDAO autorDAO;
+    private final EditorialDAO editorialDAO;
+    private final LibroDAO libroDAO;
+    private final LibreriaDAO libreriaDAO;
 
     public LibreriaController() {
         autorDAO = new AutorDAO();
