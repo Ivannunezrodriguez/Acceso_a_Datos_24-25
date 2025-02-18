@@ -11,10 +11,7 @@ public class PerfilDAO {
     public void agregarPerfil(Perfil perfil) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
-            // Verificar si el perfil ya existe para ese usuario
-            Long count = session.createQuery("SELECT COUNT(p) FROM Perfil p WHERE p.usuario.id = :usuarioId", Long.class)
-                    .setParameter("usuarioId", perfil.getUsuario().getId())
-                    .getSingleResult();
+            Long count = session.createQuery("SELECT COUNT(p) FROM Perfil p WHERE p.usuario.id = :usuarioId", Long.class).setParameter("usuarioId", perfil.getUsuario().getId()).getSingleResult();
             if (count == 0) {
                 session.persist(perfil);
                 System.out.println("Perfil agregado: " + perfil.getNombre());
@@ -27,11 +24,12 @@ public class PerfilDAO {
         }
     }
 
-public List<Perfil> listarPerfil() {
-    try (Session session = HibernateUtil.getSession()) {
-        session.beginTransaction();
-        List<Perfil> perfil = session.createQuery("SELECT p from Perfil p",Perfil.class).getResultList();
-        session.getTransaction().commit();
-        return perfil;
+    public List<Perfil> listarPerfil() {
+        try (Session session = HibernateUtil.getSession()) {
+            session.beginTransaction();
+            List<Perfil> perfil = session.createQuery("SELECT p from Perfil p", Perfil.class).getResultList();
+            session.getTransaction().commit();
+            return perfil;
+        }
+    }
 }
-}}

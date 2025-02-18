@@ -31,27 +31,22 @@ public class CursoController {
     }
 
     public void listarCursos() {
-        cursoDAO.obtenerTodosLosCursos().forEach(c ->
-                System.out.println("Curso: " + c.getNombre() + " - " + c.getDuracionHoras() + " horas"));
+        cursoDAO.obtenerTodosLosCursos().forEach(c -> System.out.println("Curso: " + c.getNombre() + " - " + c.getDuracionHoras() + " horas"));
     }
 
     public void listarEstudiantes() {
-        estudianteDAO.obtenerTodosLosEstudiantes().forEach(e ->
-                System.out.println("Estudiante: " + e.getNombre() + " - " + e.getEmail()));
+        estudianteDAO.obtenerTodosLosEstudiantes().forEach(e -> System.out.println("Estudiante: " + e.getNombre() + " - " + e.getEmail()));
     }
 
     public void listarProfesores() {
-        profesorDAO.obtenerTodosLosProfesores().forEach(p ->
-                System.out.println("Profesor: " + p.getNombre() + " - " + p.getEspecialidad()));
+        profesorDAO.obtenerTodosLosProfesores().forEach(p -> System.out.println("Profesor: " + p.getNombre() + " - " + p.getEspecialidad()));
     }
 
     public void listarUsuarios() {
-        usuarioDAO.listarUsuarios().forEach(u ->
-                System.out.println("Usuario: " + u.getId() + " - " + u.getEmail()));
+        usuarioDAO.listarUsuarios().forEach(u -> System.out.println("Usuario: " + u.getId() + " - " + u.getEmail()));
     }
 
     public void listarPerfiles() {
-        perfilDAO.listarPerfil().forEach(p ->
-                System.out.println("Perfil: " + p.getId() + " - " + p.getNombre() + " " + p.getApellido()));
+        perfilDAO.listarPerfil().forEach(p -> System.out.println("Perfil: " + p.getId() + " - " + p.getNombre() + " " + p.getApellido()));
     }
 }

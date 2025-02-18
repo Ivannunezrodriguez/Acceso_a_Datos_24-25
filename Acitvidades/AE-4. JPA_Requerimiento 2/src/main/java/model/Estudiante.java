@@ -31,11 +31,7 @@ public class Estudiante {
     private Usuario usuario;
 
     @ManyToMany
-    @JoinTable(
-            name = "inscripciones",
-            joinColumns = @JoinColumn(name = "estudiante_id"),
-            inverseJoinColumns = @JoinColumn(name = "curso_id")
-    )
+    @JoinTable(name = "inscripciones", joinColumns = @JoinColumn(name = "estudiante_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
     private Set<Curso> cursos;
 
     public Estudiante(String nombre, String email, Usuario usuario) {

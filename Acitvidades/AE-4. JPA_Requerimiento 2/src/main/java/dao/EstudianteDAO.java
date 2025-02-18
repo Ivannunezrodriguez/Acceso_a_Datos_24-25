@@ -12,10 +12,7 @@ public class EstudianteDAO {
     public void agregarEstudiante(Estudiante estudiante) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
-            // Verificar si el estudiante ya existe
-            Long count = session.createQuery("SELECT COUNT(e) FROM Estudiante e WHERE e.email = :email", Long.class)
-                    .setParameter("email", estudiante.getEmail())
-                    .getSingleResult();
+            Long count = session.createQuery("SELECT COUNT(e) FROM Estudiante e WHERE e.email = :email", Long.class).setParameter("email", estudiante.getEmail()).getSingleResult();
             if (count == 0) {
                 session.persist(estudiante);
                 System.out.println("Estudiante agregado: " + estudiante.getNombre());
@@ -31,9 +28,10 @@ public class EstudianteDAO {
 
     public List<Estudiante> obtenerTodosLosEstudiantes() {
         try (Session session = HibernateUtil.getSession()) {
-        session.beginTransaction();
-        List<Estudiante> estudiantes = session.createQuery("SELECT e FROM Estudiante e", Estudiante.class).getResultList();
-        session.getTransaction().commit();
-        return estudiantes;
+            session.beginTransaction();
+            List<Estudiante> estudiantes = session.createQuery("SELECT e FROM Estudiante e", Estudiante.class).getResultList();
+            session.getTransaction().commit();
+            return estudiantes;
+        }
     }
-}}
+}

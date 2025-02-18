@@ -1,8 +1,8 @@
 package dao;
 
+import database.HibernateUtil;
 import model.Usuario;
 import org.hibernate.Session;
-import database.HibernateUtil;
 
 import java.util.List;
 
@@ -11,10 +11,7 @@ public class UsuarioDAO {
     public void agregarUsuario(Usuario usuario) {
         try (Session session = HibernateUtil.getSession()) {
             session.beginTransaction();
-            // Comprobar si el usuario ya existe
-            Long count = session.createQuery("SELECT COUNT(u) FROM Usuario u WHERE u.email = :email", Long.class)
-                    .setParameter("email", usuario.getEmail())
-                    .getSingleResult();
+            Long count = session.createQuery("SELECT COUNT(u) FROM Usuario u WHERE u.email = :email", Long.class).setParameter("email", usuario.getEmail()).getSingleResult();
             if (count == 0) {
                 session.persist(usuario);
                 System.out.println("Usuario agregado: " + usuario.getEmail());

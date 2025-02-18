@@ -10,9 +10,9 @@ public class ProfesorDAO {
 
     public void agregarProfesor(Profesor profesor) {
         try (Session session = HibernateUtil.getSession()) {
-        session.beginTransaction();
-        session.persist(profesor);
-        session.getTransaction().commit();
+            session.beginTransaction();
+            session.persist(profesor);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -20,10 +20,12 @@ public class ProfesorDAO {
 
     public List<Profesor> obtenerTodosLosProfesores() {
         try (Session session = HibernateUtil.getSession()) {
-        session.beginTransaction();
-        List<Profesor> profesores = session.createQuery("SELECT p FROM Profesor p", Profesor.class).getResultList();
-        session.getTransaction().commit();
-        return profesores;
+            session.beginTransaction();
+            List<Profesor> profesores = session.createQuery("SELECT p FROM Profesor p", Profesor.class).getResultList();
+            session.getTransaction().commit();
+            return profesores;
 
 
-}}}
+        }
+    }
+}

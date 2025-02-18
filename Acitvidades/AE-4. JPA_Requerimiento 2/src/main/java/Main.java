@@ -35,7 +35,8 @@ public class Main {
         Profesor profesor3 = new Profesor("Daniel", "DEVops");
 
         cursoController.agregarProfesor(profesor1);
-        cursoController.agregarProfesor(profesor2);cursoController.agregarProfesor(profesor3);
+        cursoController.agregarProfesor(profesor2);
+        cursoController.agregarProfesor(profesor3);
 
         // Crear cursos
         cursoController.agregarCurso(new Curso("DAM", 40, profesor1));
