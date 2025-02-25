@@ -17,7 +17,7 @@ public class LibroController {
     private LibroService libroService;
 
     @GetMapping("error")
-    public String error(){
+    public String error() {
         return "Error en la aplicación";
     }
 

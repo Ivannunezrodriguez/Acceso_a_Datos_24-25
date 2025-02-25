@@ -1,5 +1,6 @@
 package com.ivan.libreria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class Libro {
     private double precio;
 
     @ManyToOne
+
     @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
@@ -29,17 +31,7 @@ public class Libro {
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
-    public Libro(String titulo, double precio, Autor autor, Editorial editorial) {
-        this.titulo = titulo;
-        this.precio = precio;
-        this.autor = autor;
-        this.editorial = editorial;
-    }
 
-    public Libro(String titulo, double precio) {
-        this.titulo = titulo;
-        this.precio = precio;
 
 
     }
-}

@@ -1,3 +1,5 @@
+package com.ivan.libreria.controller;
+
 import com.ivan.libreria.model.Autor;
 import com.ivan.libreria.service.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,16 @@ public class AutorController {
         return "Error en la aplicación";
     }
 
-    @GetMapping("getAll")
-    public ResponseEntity<List<Autor>> getAllAutores() {
-        List<Autor> autores = autorService.getAllAutores();
-        return new ResponseEntity<>(autores, HttpStatus.OK);
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllAutores() {
+        try {
+            List<Autor> autores = autorService.getAllAutores();
+            return new ResponseEntity<>(autores, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error al obtener los autores: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
     @PostMapping("add")
     public ResponseEntity<String> addAutor(@RequestBody Autor autor) {

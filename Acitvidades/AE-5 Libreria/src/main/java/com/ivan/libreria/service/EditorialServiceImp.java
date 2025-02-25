@@ -18,8 +18,8 @@ public class EditorialServiceImp implements EditorialService {
 
     }
 
- @Override
- public List<Editorial>getAllEditoriales(){
+    @Override
+    public List<Editorial> getAllEditoriales() {
         return editorialRepository.findAll();
     }
 }

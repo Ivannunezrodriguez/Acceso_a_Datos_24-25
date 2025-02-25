@@ -23,14 +23,15 @@ public class EditorialController {
 
     @GetMapping("getAll")
     public ResponseEntity<List<Editorial>> getAllEditoriales() {
-        List<Editorial>editoriales=editorialService.getAllEditoriales;
+        List<Editorial> editoriales = editorialService.getAllEditoriales();
         return new ResponseEntity<>(editoriales, HttpStatus.OK);
     }
+
 
     @PostMapping("add")
     public ResponseEntity<String> addEditorial(@RequestBody Editorial editorial) {
         editorialService.agregarEditorial(editorial);
-       return new ResponseEntity<>("Editorial creada :"+editorial.getNombre(),HttpStatus.CREATED);
+        return new ResponseEntity<>("Editorial creada :" + editorial.getNombre(), HttpStatus.CREATED);
     }
 
 

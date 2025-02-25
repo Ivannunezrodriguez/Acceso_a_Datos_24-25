@@ -23,16 +23,9 @@ public class Editorial {
     @Column
     private String direccion;
 
-    @OneToMany(mappedBy = "editorial", cascade = CascadeType.ALL)
-    private List<Libro> libros = new ArrayList<>();
+    @OneToMany(mappedBy = "editorial")
 
-    public Editorial(String nombre, String direccion) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-    }
+    private List<Libro> libros ;
 
-    public void addLibro(Libro libro) {
-        this.libros.add(libro);
-        libro.setEditorial(this);
-    }
+
 }

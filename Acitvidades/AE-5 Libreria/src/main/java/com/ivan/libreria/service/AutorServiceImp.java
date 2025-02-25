@@ -2,7 +2,6 @@ package com.ivan.libreria.service;
 
 import com.ivan.libreria.model.Autor;
 import com.ivan.libreria.repository.AutorRepository;
-import com.ivan.libreria.service.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -9,5 +9,5 @@ public interface EditorialService {
 
     Editorial agregarEditorial(Editorial editorial);
 
-    List<Editorial>getAllEditoriales();
+    List<Editorial> getAllEditoriales();
 }

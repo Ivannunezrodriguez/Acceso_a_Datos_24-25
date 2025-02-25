@@ -29,17 +29,5 @@ public class Libreria {
     @JoinTable(name = "libreria_libro", joinColumns = @JoinColumn(name = "libreria_id"), inverseJoinColumns = @JoinColumn(name = "libro_id"))
     private List<Libro> libros = new ArrayList<>();
 
-    public Libreria(String nombre, String nombreDueno, String direccion, List<Libro> libros) {
-        this.nombre = nombre;
-        this.nombreDueno = nombreDueno;
-        this.direccion = direccion;
-        this.libros = libros;
-    }
 
-    public Libreria(String nombre, String nombreDueno, String direccion) {
-        this.nombre = nombre;
-        this.nombreDueno = nombreDueno;
-        this.direccion = direccion;
-
-    }
 }
