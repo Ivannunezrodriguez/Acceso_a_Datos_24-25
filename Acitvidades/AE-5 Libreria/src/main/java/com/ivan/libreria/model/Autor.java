@@ -1,5 +1,6 @@
 package com.ivan.libreria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +29,8 @@ public class Autor {
     @Column
     private Date fechaNacimiento;
 
-    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "autor")
+    @JsonIgnore
     private List<Libro> libros = new ArrayList<>();
 
 

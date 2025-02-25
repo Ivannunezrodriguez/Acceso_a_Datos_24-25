@@ -1,5 +1,6 @@
 package com.ivan.libreria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class Editorial {
     private String direccion;
 
     @OneToMany(mappedBy = "editorial")
-
+@JsonIgnore
     private List<Libro> libros ;
 
 
