@@ -27,9 +27,10 @@ public class LibreriaController {
         return new ResponseEntity<>(librerias, HttpStatus.OK);
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public ResponseEntity<String> addLibreria(@RequestBody Libreria libreria) {
         libreriaService.agregarLibreria(libreria);
         return new ResponseEntity<>("Librería agregada: " + libreria.getNombre(), HttpStatus.CREATED);
     }
+
 }

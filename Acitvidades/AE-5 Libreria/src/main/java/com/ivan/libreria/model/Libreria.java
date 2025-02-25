@@ -1,5 +1,6 @@
 package com.ivan.libreria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +26,10 @@ public class Libreria {
     @Column
     private String direccion;
 
-    @ManyToMany
-    @JoinTable(name = "libreria_libro", joinColumns = @JoinColumn(name = "libreria_id"), inverseJoinColumns = @JoinColumn(name = "libro_id"))
-    private List<Libro> libros = new ArrayList<>();
+    @OneToMany(mappedBy = "libreria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Libro> libros;
+
 
 
 }

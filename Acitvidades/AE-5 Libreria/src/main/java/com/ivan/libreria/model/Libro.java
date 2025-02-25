@@ -22,16 +22,20 @@ public class Libro {
     @Column
     private double precio;
 
-    @ManyToOne
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "libreria_id")
+    @JsonIgnore
+    private Libreria libreria;
 
 
-
-    }
+}

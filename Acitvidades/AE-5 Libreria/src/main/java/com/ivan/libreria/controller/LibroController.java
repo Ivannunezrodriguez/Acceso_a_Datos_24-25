@@ -1,6 +1,9 @@
 package com.ivan.libreria.controller;
 
+import com.ivan.libreria.model.Libreria;
 import com.ivan.libreria.model.Libro;
+import com.ivan.libreria.repository.LibreriaRepository;
+import com.ivan.libreria.repository.LibroRepository;
 import com.ivan.libreria.service.LibroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,10 @@ public class LibroController {
 
     @Autowired
     private LibroService libroService;
+    @Autowired
+    private LibroRepository libroRepository;
+    @Autowired
+    private LibreriaRepository libreriaRepository;
 
     @GetMapping("error")
     public String error() {
@@ -32,4 +39,18 @@ public class LibroController {
         libroService.agregarLibro(libro);
         return new ResponseEntity<>("Libro agregado: " + libro.getTitulo(), HttpStatus.CREATED);
     }
+    @GetMapping("/byLibreria/{libreriaId}")
+    public ResponseEntity<List<Libro>> getLibrosByLibreria(@PathVariable Long libreriaId) {
+        Libreria libreria = libreriaRepository.findById(libreriaId)
+                .orElseThrow(() -> new RuntimeException("Librería no encontrada"));
+
+        List<Libro> libros = libroRepository.findByLibreria(libreria);
+
+        if (libros.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.ok(libros);
+    }
+
+
 }
