@@ -26,7 +26,7 @@ public class Editorial {
     private String direccion;
 
     @OneToMany(mappedBy = "editorial")
-    @JsonManagedReference
+@JsonIgnore
     private List<Libro> libros ;
 
 

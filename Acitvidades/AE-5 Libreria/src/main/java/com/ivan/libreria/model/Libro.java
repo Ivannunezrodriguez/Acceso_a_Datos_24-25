@@ -23,19 +23,19 @@ public class Libro {
     @Column
     private double precio;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+
     @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "libreria_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
+    @JoinColumn(name = "libreria_id")
     private Libreria libreria;
 
 

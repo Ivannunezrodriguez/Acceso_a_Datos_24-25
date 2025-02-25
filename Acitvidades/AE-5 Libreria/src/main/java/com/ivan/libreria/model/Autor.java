@@ -31,7 +31,7 @@ public class Autor {
     private Date fechaNacimiento;
 
     @OneToMany(mappedBy = "autor")
-    @JsonManagedReference
+@JsonIgnore
     private List<Libro> libros = new ArrayList<>();
 
 
