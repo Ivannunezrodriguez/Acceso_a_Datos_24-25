@@ -21,7 +21,7 @@ public class Libreria {
     @Column
     private String nombre;
     @Column
-    private String nombreDueno;
+    private String nombre_dueno;
     @Column
     private String direccion;
 
