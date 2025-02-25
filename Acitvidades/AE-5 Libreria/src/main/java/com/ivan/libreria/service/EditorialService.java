@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface EditorialService {
 
-
     Editorial agregarEditorial(Editorial editorial);
 
     List<Editorial> getAllEditoriales();

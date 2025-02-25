@@ -44,7 +44,7 @@ public class LibroController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addLibro(@RequestBody Libro libro) {
-        // Verificar que los datos sean válidos
+
         if (libro.getLibreria() == null || libro.getLibreria().getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Librería no puede ser NULL");
         }
@@ -54,8 +54,6 @@ public class LibroController {
         if (libro.getEditorial() == null || libro.getEditorial().getId() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Editorial no puede ser NULL");
         }
-
-        // Buscar los objetos en la base de datos
         Libreria libreria = libreriaRepository.findById(libro.getLibreria().getId())
                 .orElseThrow(() -> new RuntimeException("Librería no encontrada"));
 
@@ -65,7 +63,6 @@ public class LibroController {
         Editorial editorial = editorialRepository.findById(libro.getEditorial().getId())
                 .orElseThrow(() -> new RuntimeException("Editorial no encontrada"));
 
-        // Asignar relaciones
         libro.setLibreria(libreria);
         libro.setAutor(autor);
         libro.setEditorial(editorial);
@@ -73,7 +70,6 @@ public class LibroController {
         libroService.agregarLibro(libro);
         return ResponseEntity.status(HttpStatus.CREATED).body("Libro agregado: " + libro.getTitulo());
     }
-
 
 
     @GetMapping("/byLibreria/{libreriaId}")

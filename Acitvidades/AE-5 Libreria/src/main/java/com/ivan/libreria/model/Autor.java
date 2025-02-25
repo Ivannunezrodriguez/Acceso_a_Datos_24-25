@@ -1,15 +1,12 @@
 package com.ivan.libreria.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,10 +28,8 @@ public class Autor {
     private Date fechaNacimiento;
 
     @OneToMany(mappedBy = "autor")
-@JsonIgnore
+    @JsonIgnore
     private List<Libro> libros = new ArrayList<>();
-
-
 
 
 }
