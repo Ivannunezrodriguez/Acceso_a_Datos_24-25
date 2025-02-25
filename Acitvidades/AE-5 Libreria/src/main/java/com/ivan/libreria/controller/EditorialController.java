@@ -1,6 +1,5 @@
 package com.ivan.libreria.controller;
 
-
 import com.ivan.libreria.model.Editorial;
 import com.ivan.libreria.service.EditorialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/editorial")
 public class EditorialController {
+
     @Autowired
     private EditorialService editorialService;
 
@@ -24,13 +23,14 @@ public class EditorialController {
 
     @GetMapping("getAll")
     public ResponseEntity<List<Editorial>> getAllEditoriales() {
-        return new ResponseEntity<>(editorialService., HttpStatus.OK);
+        List<Editorial>editoriales=editorialService.getAllEditoriales;
+        return new ResponseEntity<>(editoriales, HttpStatus.OK);
     }
 
     @PostMapping("add")
-    public String addEditorial(@RequestBody Editorial editorial) {
+    public ResponseEntity<String> addEditorial(@RequestBody Editorial editorial) {
         editorialService.agregarEditorial(editorial);
-        return "editorial agregado" + editorial.getNombre();
+       return new ResponseEntity<>("Editorial creada :"+editorial.getNombre(),HttpStatus.CREATED);
     }
 
 

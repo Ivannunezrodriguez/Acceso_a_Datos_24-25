@@ -17,13 +17,14 @@ public class LibreriaController {
     private LibreriaService libreriaService;
 
     @GetMapping("error")
-    public String error() {
+    public String error(){
         return "Error en la aplicación";
     }
 
     @GetMapping("getAll")
     public ResponseEntity<List<Libreria>> getAllLibrerias() {
-        return new ResponseEntity<>(libreriaService.getAllLibrerias(), HttpStatus.OK);
+        List<Libreria> librerias = libreriaService.getAllLibrerias();
+        return new ResponseEntity<>(librerias, HttpStatus.OK);
     }
 
     @PostMapping("add")

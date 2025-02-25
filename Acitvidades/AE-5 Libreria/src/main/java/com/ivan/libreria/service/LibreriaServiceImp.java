@@ -2,6 +2,7 @@ package com.ivan.libreria.service;
 
 import com.ivan.libreria.model.Libreria;
 import com.ivan.libreria.repository.LibreriaRepository;
+import com.ivan.libreria.service.LibreriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

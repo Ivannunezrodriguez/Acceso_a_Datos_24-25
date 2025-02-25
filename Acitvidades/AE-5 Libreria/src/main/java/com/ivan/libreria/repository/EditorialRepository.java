@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface EditorialRepository extends JpaRepository<Editorial, Long> {
 
-    List<Editorial> getAllEditoriales();
+
 }

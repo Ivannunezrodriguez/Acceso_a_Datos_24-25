@@ -5,7 +5,9 @@ import com.ivan.libreria.model.Editorial;
 import java.util.List;
 
 public interface EditorialService {
-    List<Editorial> getAllEditoriales;
+
 
     Editorial agregarEditorial(Editorial editorial);
+
+    List<Editorial>getAllEditoriales();
 }

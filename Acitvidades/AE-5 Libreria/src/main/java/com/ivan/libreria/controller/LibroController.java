@@ -22,12 +22,13 @@ public class LibroController {
     }
 
     @GetMapping("getAll")
-    public ResponseEntity<List<Libro>> getAllLibros(){
-        return new ResponseEntity<>(libroService.getAllLibros(), HttpStatus.OK);
+    public ResponseEntity<List<Libro>> getAllLibros() {
+        List<Libro> libros = libroService.getAllLibros();
+        return new ResponseEntity<>(libros, HttpStatus.OK);
     }
 
     @PostMapping("add")
-    public ResponseEntity<String> addLibro(@RequestBody Libro libro){
+    public ResponseEntity<String> addLibro(@RequestBody Libro libro) {
         libroService.agregarLibro(libro);
         return new ResponseEntity<>("Libro agregado: " + libro.getTitulo(), HttpStatus.CREATED);
     }
