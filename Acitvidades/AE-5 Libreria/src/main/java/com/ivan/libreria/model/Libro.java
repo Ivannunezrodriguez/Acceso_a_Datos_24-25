@@ -1,5 +1,6 @@
 package com.ivan.libreria.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,18 +24,18 @@ public class Libro {
     private double precio;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "autor_id")
     private Autor autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "libreria_id")
-    @JsonIgnore
+    @JsonBackReference
     private Libreria libreria;
 
 
