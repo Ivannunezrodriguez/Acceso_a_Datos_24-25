@@ -1,35 +1,31 @@
 package com.ivan.examen.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.ArrayList;
+import lombok.Data;
 import java.util.Date;
-import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
+@Table(name = "Alumno")
 public class Alumno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_alumno")
     private Long id;
-    @Column
+
+    @Column(nullable = false)
     private String nombre;
-    @Column
-    private String apellidos;
-    @Column
-    private Date fechaNacimiento;
 
-    @OneToMany(mappedBy = "autor")
-    @JsonIgnore
-    private List<Libro> libros = new ArrayList<>();
+    @Column(nullable = false)
+    private String apellido;
 
+    @Column(nullable = false)
+    private Date fecha_nacimiento;
 
+    @Column(unique = true)
+    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "id_curso", nullable = false)
+    private Curso curso;
 }

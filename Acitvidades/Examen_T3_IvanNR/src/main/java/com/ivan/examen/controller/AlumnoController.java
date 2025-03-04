@@ -1,6 +1,5 @@
 package com.ivan.examen.controller;
 
-
 import com.ivan.examen.model.Alumno;
 import com.ivan.examen.service.AlumnoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,22 +9,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/alumnos")
-@RequiredArgsConstructor
 public class AlumnoController {
-    private final AlumnoService alumnoService;
+    @Autowired
+    private AlumnoService alumnoService;
 
     @GetMapping
-    public List<Alumno> getAll() {
-        return alumnoService.getAllAlumnos();
-    }
-
-    @GetMapping("/curso/{id}")
-    public List<Alumno> getByCurso(@PathVariable int id) {
-        return alumnoService.getAlumnosByCurso(id);
+    public List<Alumno> getAllAlumnos() {
+        return alumnoService.findAll();
     }
 
     @PostMapping
-    public Alumno create(@RequestBody Alumno alumno) {
-        return alumnoService.saveAlumno(alumno);
+    public Alumno createAlumno(@RequestBody Alumno alumno) {
+        return alumnoService.save(alumno);
+    }
+
+    @GetMapping("/curso/{idCurso}")
+    public List<Alumno> getAlumnosByCurso(@PathVariable Long idCurso) {
+        return alumnoService.findByCursoId(idCurso);
     }
 }

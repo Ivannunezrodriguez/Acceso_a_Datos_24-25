@@ -10,7 +10,7 @@ public class Aula {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_aula")
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String nombre;

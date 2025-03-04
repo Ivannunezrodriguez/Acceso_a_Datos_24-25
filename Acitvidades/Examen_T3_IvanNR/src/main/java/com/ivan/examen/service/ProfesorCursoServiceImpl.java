@@ -1,11 +1,11 @@
-package com.ivan.examen.service;
+package com.ivan.examen.service.impl;
 
 import com.ivan.examen.model.Profesor;
 import com.ivan.examen.model.ProfesorCurso;
 import com.ivan.examen.repository.ProfesorCursoRepository;
+import com.ivan.examen.service.ProfesorCursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +16,7 @@ public class ProfesorCursoServiceImpl implements ProfesorCursoService {
     private ProfesorCursoRepository profesorCursoRepository;
 
     @Override
-    public List<Profesor> findProfesoresByCursoId(int idCurso) {
+    public List<Profesor> findProfesoresByCursoId(Long idCurso) {
         return profesorCursoRepository.findByCursoId(idCurso)
                 .stream()
                 .map(ProfesorCurso::getProfesor)
@@ -24,7 +24,7 @@ public class ProfesorCursoServiceImpl implements ProfesorCursoService {
     }
 
     @Override
-    public List<String> findCursosByProfesorId(int idProfesor) {
+    public List<String> findCursosByProfesorId(Long idProfesor) {
         return profesorCursoRepository.findByProfesorId(idProfesor)
                 .stream()
                 .map(pc -> pc.getCurso().getNombre())

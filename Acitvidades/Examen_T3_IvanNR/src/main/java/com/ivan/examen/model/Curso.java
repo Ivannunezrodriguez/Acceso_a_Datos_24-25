@@ -1,22 +1,31 @@
-import jakarta.persistence.Entity;
+package com.ivan.examen.model;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.Set;
+
+@Data
 @Entity
 @Table(name = "Curso")
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCurso;
+    @Column(name = "id_curso")
+    private Long id;
+
+    @Column(nullable = false)
     private String nombre;
 
-    @ManyToMany(mappedBy = "cursos")
+    @ManyToMany
+    @JoinTable(
+            name = "Profesor_Curso",
+            joinColumns = @JoinColumn(name = "id_curso"),
+            inverseJoinColumns = @JoinColumn(name = "id_profesor")
+    )
     private Set<Profesor> profesores;
 
     @OneToOne
-    @JoinColumn(name = "id_aula")
+    @JoinColumn(name = "id_aula", nullable = false)
     private Aula aula;
 
     @OneToMany(mappedBy = "curso")
