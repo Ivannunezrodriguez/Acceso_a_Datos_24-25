@@ -1,11 +1,14 @@
 package com.ivan.examen.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "Profesor")
+@Table(name = "profesor")
 public class Profesor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +23,8 @@ public class Profesor {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @ManyToMany(mappedBy = "profesores")
+    @JsonIgnore
+    private List<Curso> cursos;
 }

@@ -5,6 +5,7 @@ import com.ivan.examen.repository.AulaRepository;
 import com.ivan.examen.service.AulaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service

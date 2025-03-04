@@ -14,12 +14,16 @@ public class ProfesorController {
     private ProfesorService profesorService;
 
 
-
-
     @PostMapping
     public Profesor createProfesor(@RequestBody Profesor profesor) {
         return profesorService.save(profesor);
     }
 
 
+    @GetMapping("/curso/{idCurso}")
+    public List<Profesor> getProfesoresByCurso(@PathVariable Long idCurso) {
+        return profesorService.findByCursoId(idCurso);
+    }
 }
+
+

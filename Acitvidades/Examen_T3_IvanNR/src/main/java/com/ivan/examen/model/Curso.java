@@ -1,12 +1,14 @@
 package com.ivan.examen.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.Set;
+
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Curso")
+@Table(name = "curso")
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +24,21 @@ public class Curso {
             joinColumns = @JoinColumn(name = "id_curso"),
             inverseJoinColumns = @JoinColumn(name = "id_profesor")
     )
-    private Set<Profesor> profesores;
 
-    @OneToOne
+    private List<Profesor> profesores;
+
+    @ManyToOne
     @JoinColumn(name = "id_aula", nullable = false)
+    @JsonIgnore
     private Aula aula;
 
-    @OneToMany(mappedBy = "curso")
-    private Set<Alumno> alumnos;
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Alumno> alumnos;
+
+    @ManyToOne
+    @JoinColumn(name = "id_profesor", nullable = false)
+    @JsonIgnore
+    private Profesor profesor;
+
 }
