@@ -1,11 +1,12 @@
 package com.ivan.examen.repository;
 
-import com.ivan.examen.model.Alumno;
+import com.examen_ad.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface AlumnoRepository extends JpaRepository<Alumno, Integer> {
-    List<Alumno> findByCurso_Id_curso(int id_curso);
-
+@Repository
+public interface AlumnoRepository extends JpaRepository<Aula, Integer> {
+    List<Aula> findByCapacidadGreaterThan(int capacidad);
 }

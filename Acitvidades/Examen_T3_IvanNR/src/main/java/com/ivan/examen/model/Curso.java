@@ -1,25 +1,24 @@
-package com.ivan.examen.model;
+import jakarta.persistence.Entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
-
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Curso")
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_curso")
-    private int id;
-
-    @Column(nullable = false)
+    private Integer idCurso;
     private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "id_profesor", nullable = false)
-    private Profesor profesor;
+    @ManyToMany(mappedBy = "cursos")
+    private Set<Profesor> profesores;
 
     @OneToOne
-    @JoinColumn(name = "id_aula", nullable = false)
+    @JoinColumn(name = "id_aula")
     private Aula aula;
+
+    @OneToMany(mappedBy = "curso")
+    private Set<Alumno> alumnos;
 }

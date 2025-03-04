@@ -10,22 +10,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/alumnos")
-class AlumnoController {
-    @Autowired
-    private AlumnoService alumnoService;
+@RequiredArgsConstructor
+public class AlumnoController {
+    private final AlumnoService alumnoService;
 
     @GetMapping
-    public List<Alumno> getAllAlumnos() {
-        return alumnoService.findAll();
+    public List<Alumno> getAll() {
+        return alumnoService.getAllAlumnos();
+    }
+
+    @GetMapping("/curso/{id}")
+    public List<Alumno> getByCurso(@PathVariable int id) {
+        return alumnoService.getAlumnosByCurso(id);
     }
 
     @PostMapping
-    public Alumno createAlumno(@RequestBody Alumno alumno) {
-        return alumnoService.save(alumno);
-    }
-
-    @GetMapping("/curso/{id_Curso}")
-    public List<Alumno> getAlumnosByCurso(@PathVariable int id_Curso) {
-        return alumnoService.findByCursoId(id_Curso);
+    public Alumno create(@RequestBody Alumno alumno) {
+        return alumnoService.saveAlumno(alumno);
     }
 }
